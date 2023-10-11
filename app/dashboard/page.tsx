@@ -1,30 +1,47 @@
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import React from "react";
 import Image from "next/image";
+import React from "react";
+
 const Dashboard = async () => {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = getUser();
 	console.log(user);
 	return isAuthenticated() ? (
 		<div>
-			<header className="flex items-center justify-between border p-4">
-				<h1>Dashboard</h1>
-				<LogoutLink className="border px-2 py-1 text-red-500 rounded-md">
-					Sign out
-				</LogoutLink>
-			</header>
-			<div className="flex items-center justify-center pt-20">
-				<div className="flex flex-col items-center">
-					<h2>Welcome {user.given_name}</h2>
-					<p>{user.email}</p>
-					<Image
-						src={user.picture!}
-						alt={user.given_name!}
-						height={80}
-						width={80}
-						className="rounded-full"
-					/>
+			<div className="p-12">
+				<h1 className="font-bold text-4xl ">Kinde.</h1>
+				<div className="flex flex-col h-[500px] items-center justify-center">
+					<h1 className="font-bold text-4xl">Dashboard.</h1>
+					<div className="flex flex-col h-[500px] items-center justify-center ">
+						<div className="flex flex-col p-4 bg-black   space-x-2 mt-12 rounded-md bg-blrck text-white">
+							<div className="flex items-center space-x-2 ">
+								<Image
+									src={user?.picture!}
+									width={50}
+									height={50}
+									alt={user?.picture!}
+									className="rounded-full"
+								/>
+								<div className="flex flex-col">
+									<div className="flex space-x-2">
+										<h2>{user?.given_name}</h2>
+										<h2>{user?.family_name}</h2>
+									</div>
+									<p>
+										<span className="text-gray-500">
+											{user?.email}
+										</span>
+									</p>
+								</div>
+							</div>
+							<div className="flex justify-center">
+								<LogoutLink className="mt-5 bg-white font-bold w-[90px] rounded-md flex justify-center text-black">
+									Sign out
+								</LogoutLink>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
